@@ -1,16 +1,20 @@
+// react
 import { useState } from "react";
 
+// styles
 import styles from "./TaskItem.module.css";
 
+// library
 import {
   CheckIcon,
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 
-export default function TaskItem({ task }) {
+export default function TaskItem({ task, deleteTask }) {
   const [isChecked, setIsChecked] = useState(false);
 
+  // check the box
   const handleCheckBoxChange = (e) => {
     setIsChecked(true);
   };
@@ -44,7 +48,7 @@ export default function TaskItem({ task }) {
         <button
           className={`btn ${styles.delete}`}
           aria-label={`Update ${task.name} task`}
-          //   onClick={}
+          onClick={() => deleteTask(task.id)}
         >
           <TrashIcon width={24} />
         </button>

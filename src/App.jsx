@@ -10,14 +10,20 @@ function App() {
 
   // adding task
   const addTask = (task) => {
+    // set prev variable and add new one
     setTasks((prevState) => [...prevState, task]);
+  };
+
+  // handle delete, pass something uniq like ID
+  const deleteTask = (id) => {
+    setTasks((prevState) => prevState.filter((task) => task.id !== id));
   };
 
   return (
     <div className="App">
       <h1 className="text-4xl font-bold">My Task List</h1>
       <CustomForm addTask={addTask} />
-      {tasks && <TaskList tasks={tasks} />}
+      {tasks && <TaskList tasks={tasks} deleteTask={deleteTask} />}
     </div>
   );
 }
