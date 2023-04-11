@@ -19,11 +19,27 @@ function App() {
     setTasks((prevState) => prevState.filter((task) => task.id !== id));
   };
 
+  // handle check task, pass id
+  const toggleTask = (id) => {
+    // find task with id, and set check with the opposite value
+    setTasks((prevState) =>
+      prevState.map((task) =>
+        task.id === id ? { ...task, checked: !task.checked } : task
+      )
+    );
+  };
+
   return (
     <div className="App">
       <h1 className="text-4xl font-bold">My Task List</h1>
       <CustomForm addTask={addTask} />
-      {tasks && <TaskList tasks={tasks} deleteTask={deleteTask} />}
+      {tasks && (
+        <TaskList
+          tasks={tasks}
+          deleteTask={deleteTask}
+          toggleTask={toggleTask}
+        />
+      )}
     </div>
   );
 }
