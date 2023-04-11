@@ -4,10 +4,13 @@ import "./App.css";
 // components
 import CustomForm from "./components/CustomForm";
 import TaskList from "./components/TaskList";
+import EditForm from "./components/EditForm";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-
+  const [editedTask, setEditedTask] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [prevFocus, setPrevFocus] = useState(false);
   // adding task
   const addTask = (task) => {
     // set prev variable and add new one
@@ -29,15 +32,48 @@ function App() {
     );
   };
 
+  // handle edit task
+  const updateTask = (taskList) => {
+    // find task with id, and set check with the opposite value
+    setTasks((prevState) =>
+      prevState.map((task) =>
+        task.id === taskList.id ? { ...task, name: taskList.name } : task
+      )
+    );
+
+    closeEditMode();
+  };
+
+  const closeEditMode = () => {
+    setIsEditing(false);
+    prevFocus.focus();
+  };
+
+  const enterEditMode = (task) => {
+    setEditedTask(task);
+    setIsEditing(true);
+
+    // set focus to original
+    setPrevFocus(document.activeElement);
+  };
+
   return (
     <div className="App">
       <h1 className="text-4xl font-bold">My Task List</h1>
+      {isEditing && (
+        <EditForm
+          editedTask={editedTask}
+          updateTask={updateTask}
+          closeEditMode={closeEditMode}
+        />
+      )}
       <CustomForm addTask={addTask} />
       {tasks && (
         <TaskList
           tasks={tasks}
           deleteTask={deleteTask}
           toggleTask={toggleTask}
+          enterEditMode={enterEditMode}
         />
       )}
     </div>
