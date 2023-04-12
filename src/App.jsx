@@ -4,9 +4,13 @@ import { useState } from "react";
 // custom components
 import CustomForm from "./components/CustomForm";
 import TaskList from "./components/TaskList";
+import EditForm from "./components/EditForm";
 
 function App() {
   const [taskList, setTaskList] = useState([]);
+  const [editedTask, setEditedTask] = useState(null);
+
+  const [isEditing, setIsEditing] = useState(false);
 
   const addTask = (task) => {
     // Look taskList state and add new state(task)
@@ -33,11 +37,40 @@ function App() {
     );
   };
 
+  const enterEditMode = (task) => {
+    // trigger popup edit modal
+    setIsEditing(true);
+
+    // passing real value of task from editForm.jsx
+    setEditedTask(task);
+  };
+
+  const closeEditMode = () => {
+    setIsEditing(false);
+  };
+
+  const updateTask = (taskItSefl) => {
+    // look origin value of task
+    // find the correct id
+    // replace origin vaue of task with new one with is (updatedTaskName)
+    setTaskList((prevState) =>
+      prevState.map((task) =>
+        task.id === taskItSefl.id ? { ...taskItSefl, name: task.name } : task
+      )
+    );
+
+    // close edit mode
+    closeEditMode();
+  };
+
   return (
     <div className="container">
       <header>
         <h1>My Task List</h1>
       </header>
+      {isEditing && (
+        <EditForm updateTask={updateTask} editedTask={editedTask} />
+      )}
       <CustomForm addTask={addTask} />
 
       {/* Display task list */}
@@ -46,6 +79,7 @@ function App() {
           taskList={taskList}
           deleteTask={deleteTask}
           toggleTask={toggleTask}
+          enterEditMode={enterEditMode}
         />
       )}
     </div>
