@@ -8,9 +8,11 @@ export default function TaskList({ taskList }) {
   return (
     <ul className={styles.tasks}>
       {/* Looping to taskList to display it */}
-      {taskList.map((task) => (
-        <TaskItem key={task.id} task={task} />
-      ))}
+      {taskList
+        .sort((a, b) => b.id - a.id) // sort asc
+        .map((task) => (
+          <TaskItem key={task.id} task={task} />
+        ))}
     </ul>
   );
 }
