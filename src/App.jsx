@@ -12,6 +12,8 @@ function App() {
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const [prevFocusEl, setPrevFocusEl] = useState(false);
+
   const addTask = (task) => {
     // Look taskList state and add new state(task)
     setTaskList((prevState) => [...prevState, task]);
@@ -43,10 +45,14 @@ function App() {
 
     // passing real value of task from editForm.jsx
     setEditedTask(task);
+
+    setPrevFocusEl(document.activeElement);
   };
 
   const closeEditMode = () => {
     setIsEditing(false);
+
+    setPrevFocusEl.focus();
   };
 
   const updateTask = (taskItSefl) => {
@@ -69,7 +75,11 @@ function App() {
         <h1>My Task List</h1>
       </header>
       {isEditing && (
-        <EditForm updateTask={updateTask} editedTask={editedTask} />
+        <EditForm
+          updateTask={updateTask}
+          editedTask={editedTask}
+          closeEditMode={closeEditMode}
+        />
       )}
       <CustomForm addTask={addTask} />
 
