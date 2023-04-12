@@ -1,6 +1,9 @@
-// custom components
+// react
 import { useState } from "react";
+
+// custom components
 import CustomForm from "./components/CustomForm";
+import TaskList from "./components/TaskList";
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -17,6 +20,9 @@ function App() {
         <h1>My Task List</h1>
       </header>
       <CustomForm addTask={addTask} />
+
+      {/* Display task list */}
+      {taskList && <TaskList taskList={taskList} />}
     </div>
   );
 }
