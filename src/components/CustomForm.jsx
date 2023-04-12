@@ -10,38 +10,36 @@ export default function CustomForm({ addTask }) {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    // adding object to task
     addTask({
-      name: task.charAt(0).toUpperCase() + task.slice(1),
+      name: task,
       checked: false,
-      id: Date.now(),
+      id: Date.now(), // create uniq id
     });
 
-    // set task value to empty after submit
+    // reset task to empty after submit
     setTask("");
   };
 
   return (
-    <form className="todo py-10" onSubmit={handleFormSubmit}>
+    <form className="todo" onSubmit={handleFormSubmit}>
       <div className="wrapper">
         <input
           type="text"
           id="task"
           className="input"
-          value={task}
-          onInput={(e) => setTask(e.target.value)}
           required
           autoFocus
-          maxLength={60}
+          maxLength={64}
           placeholder="Enter Task"
-          autoCapitalize="sentences"
+          value={task}
+          onInput={(e) => setTask(e.target.value)}
         />
         <label htmlFor="task" className="label">
           Enter Task
         </label>
       </div>
       <button className="btn" aria-label="Add Task" type="submit">
-        <PlusIcon />
+        <PlusIcon width={20} />
       </button>
     </form>
   );

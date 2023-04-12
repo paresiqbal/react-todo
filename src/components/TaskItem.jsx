@@ -1,8 +1,6 @@
-// react
-import { useState } from "react";
-
 // styles
-import styles from "./TaskItem.module.css";
+import { useState } from "react";
+import styles from "../styles/TaskItem.module.css";
 
 // library
 import {
@@ -11,18 +9,13 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 
-export default function TaskItem({
-  task,
-  deleteTask,
-  toggleTask,
-  enterEditMode,
-}) {
-  const [isChecked, setIsChecked] = useState(false);
+export default function TaskItem({ task, deleteTask }) {
+  // set isChecked value to original task.checked value(false)
+  const [isChecked, setIsChecked] = useState(task.checked);
 
-  // check the box
   const handleCheckBoxChange = (e) => {
+    // when checkbox is clicked set value the opposite
     setIsChecked(!isChecked);
-    toggleTask(task.id);
   };
 
   return (
@@ -30,30 +23,31 @@ export default function TaskItem({
       <div className={styles["task-group"]}>
         <input
           type="checkbox"
-          value={isChecked}
+          checked={isChecked}
           name={task.name}
           id={task.id}
-          onChange={handleCheckBoxChange}
           className={styles.checkbox}
+          onChange={handleCheckBoxChange}
         />
         <label htmlFor={task.id} className={styles.label}>
           {task.name}
           <p className={styles.checkmark}>
-            <CheckIcon strokeWidth={2} width={24} />
+            <CheckIcon width={24} strokeWidth={2} />
           </p>
         </label>
       </div>
+
       <div className={styles["task-group"]}>
         <button
           className="btn"
-          aria-label={`Update ${task.name} task`}
-          onClick={() => enterEditMode(task)}
+          aria-label={`Update ${task.name} Task`}
+          // onClick={}
         >
           <PencilSquareIcon width={24} />
         </button>
         <button
           className={`btn ${styles.delete}`}
-          aria-label={`Update ${task.name} task`}
+          aria-label={`Delete ${task.name} Task`}
           onClick={() => deleteTask(task.id)}
         >
           <TrashIcon width={24} />
