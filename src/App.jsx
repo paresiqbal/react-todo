@@ -22,6 +22,17 @@ function App() {
     );
   };
 
+  const toggleTask = (id) => {
+    // Map the task and find the correct id
+    // Look all object variable in task
+    // Change the value of checked to the opposite
+    setTaskList((prevState) =>
+      prevState.map((task) =>
+        task.id === id ? { ...task, checked: !task.checked } : task
+      )
+    );
+  };
+
   return (
     <div className="container">
       <header>
@@ -30,7 +41,13 @@ function App() {
       <CustomForm addTask={addTask} />
 
       {/* Display task list */}
-      {taskList && <TaskList taskList={taskList} deleteTask={deleteTask} />}
+      {taskList && (
+        <TaskList
+          taskList={taskList}
+          deleteTask={deleteTask}
+          toggleTask={toggleTask}
+        />
+      )}
     </div>
   );
 }
