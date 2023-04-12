@@ -11,7 +11,7 @@ export default function CustomForm({ addTask }) {
     e.preventDefault();
 
     addTask({
-      name: task,
+      name: task.charAt(0).toUpperCase() + task.slice(1),
       checked: false,
       id: Date.now(), // create uniq id
     });
