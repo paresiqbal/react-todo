@@ -9,7 +9,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 
-export default function TaskItem({ task }) {
+export default function TaskItem({ task, deleteTask }) {
   // set isChecked value to original task.checked value(false)
   const [isChecked, setIsChecked] = useState(task.checked);
 
@@ -48,7 +48,7 @@ export default function TaskItem({ task }) {
         <button
           className={`btn ${styles.delete}`}
           aria-label={`Delete ${task.name} Task`}
-          // onClick={}
+          onClick={() => deleteTask(task.id)}
         >
           <TrashIcon width={24} />
         </button>

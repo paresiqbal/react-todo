@@ -14,6 +14,14 @@ function App() {
     console.log(task);
   };
 
+  const deleteTask = (id) => {
+    // Look taskList state & find id
+    // Delete task with specific id with filter
+    setTaskList((prevState) =>
+      prevState.filter((taskList) => id !== taskList.id)
+    );
+  };
+
   return (
     <div className="container">
       <header>
@@ -22,7 +30,7 @@ function App() {
       <CustomForm addTask={addTask} />
 
       {/* Display task list */}
-      {taskList && <TaskList taskList={taskList} />}
+      {taskList && <TaskList taskList={taskList} deleteTask={deleteTask} />}
     </div>
   );
 }
