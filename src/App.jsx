@@ -6,8 +6,12 @@ import CustomForm from "./components/CustomForm";
 import TaskList from "./components/TaskList";
 import EditForm from "./components/EditForm";
 
+// custom hooks
+import useLocalStorage from "./hooks/useLocalStorage";
+
 function App() {
-  const [taskList, setTaskList] = useState([]);
+  // custom hooks set key value and the value array
+  const [taskList, setTaskList] = useLocalStorage("react-todo.taks", []);
   const [editedTask, setEditedTask] = useState(null);
 
   const [isEditing, setIsEditing] = useState(false);
